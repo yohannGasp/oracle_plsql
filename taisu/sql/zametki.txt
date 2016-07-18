@@ -1,0 +1,24 @@
+
+нахождение договоров по счету
+
+SELECT DISTINCT C_ACCOUNT, (SELECT A3.C_KIND_CREDIT FROM ibs.Z#PR_CRED A3 WHERE A3.ID = (SELECT max(ID) FROM ibs.Z#PR_CRED a1 where a1.C_ACCOUNT = A2.C_ACCOUNT)) C_KIND_CREDIT, (SELECT A3.c_NUM_DOG FROM ibs.Z#PR_CRED A3 WHERE A3.ID = (SELECT max(ID) FROM ibs.Z#PR_CRED a1 where a1.C_ACCOUNT = A2.C_ACCOUNT)) MAX_NUM_DOG FROM ibs.Z#PR_CRED A2
+where a2.C_ACCOUNT = '59044007'
+ORDER BY A2.C_ACCOUNT
+
+ставки искать тут 
+select * from IBS.Z#PRC_SCHEME
+
+
+CREATE TABLE BIB_TAISU_KREDDOG_NUM 
+ (  ID_NUMDOG VARCHAR2(20),       
+    NUMDOG VARCHAR2(20)
+ )
+
+INSERT INTO BIB_TAISU_KREDDOG_NUM
+select id, substr(c_num_dog,1,9) num_dog from (
+select id, substr(c_import_code,1,4)||'-'||substr(c_import_code,5,8) c_num_dog from IBS.Z#PR_CRED   /* вытаскиваем старый номер договора */
+      where (c_num_dog like '%-МСБ' or c_num_dog like '%К%' or c_num_dog like '%п%' or c_num_dog like '%-С') 
+      union
+select id, case length(c_num_dog) when 8 then substr(c_num_dog,1,4)||'-0'||substr(c_num_dog,6) else c_num_dog end c_num_dog from IBS.Z#PR_CRED 
+      where not c_num_dog like '%-МСБ' and not c_num_dog like '%К%' and not c_num_dog like '%п%' and not c_num_dog like '%-С' 
+) asd
