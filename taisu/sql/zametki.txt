@@ -22,3 +22,6 @@ select id, substr(c_import_code,1,4)||'-'||substr(c_import_code,5,8) c_num_dog f
 select id, case length(c_num_dog) when 8 then substr(c_num_dog,1,4)||'-0'||substr(c_num_dog,6) else c_num_dog end c_num_dog from IBS.Z#PR_CRED 
       where not c_num_dog like '%-МСБ' and not c_num_dog like '%К%' and not c_num_dog like '%п%' and not c_num_dog like '%-С' 
 ) asd
+
+
+перенес баланс в хранимку, чтобы вызывать из шедулера

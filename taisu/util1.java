@@ -29,9 +29,14 @@ public class util1 {
     }
 
     //вчерашняя дата
-    public static String Yesteday(){
+    public static String Yesteday() {
         Calendar today = Calendar.getInstance();
-        today.add(Calendar.DAY_OF_MONTH, -1); //вчерашняя дата
+        if (today.get(Calendar.DAY_OF_WEEK) == 2) {
+            today.add(Calendar.DAY_OF_MONTH, -3); //пятница
+
+        } else {
+            today.add(Calendar.DAY_OF_MONTH, -1); //вчерашняя дата
+        }
         today.add(Calendar.MONTH, 1);         // выправляем месяц
         return normal_date(String.valueOf(today.get(Calendar.DAY_OF_MONTH))) + "." + normal_date(String.valueOf(today.get(Calendar.MONTH))) + "." + today.get(Calendar.YEAR);
     }

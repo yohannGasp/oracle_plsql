@@ -28,24 +28,28 @@ public class Taisu {
     static DB db;
 
 
-    public static void main(String[] args) throws IOException, ParseException, SQLException {
+    public static void main(String[] args) throws IOException, ParseException, SQLException, InterruptedException {
         db = new DB();
         db.Connection();
         db.queryAll();
         bib_prep bp = new bib_prep();
         bp.start_code();
 
-        new bib_subconto().to_file(BIB_SUBCONTO); // ok
-        new bib_client().to_file(BIB_CLIENT);     // ok
-        new bib_depdog().to_file(BIB_DEPDOG);     // ok
-        new bib_kreddog().to_file(BIB_KREDDOG);   // ok
-        new bib_kredpos().to_file(BIB_KREDPOS);   // ok
-        //new bib_order().to_file(BIB_ORDER);       // ok
-        new bib_balance().to_file(BIB_BALANCE);   // ok
-        new bib_account().to_file(BIB_ACCOUNT);   // ok
+        new SubcontoThread();                       // ok
+        new ClientsThread();                        // ok
+        new DepdogThread();                         // ok
+        new KreddogThread();                        // ok
+        new KredPosThread();                        // ok
+        new bib_order().to_file(BIB_ORDER);         // ok
+        new bib_balance().to_file(BIB_BALANCE);     // ok
+        new bib_account().to_file(BIB_ACCOUNT);     // ok
 
         bp.finish_code();
         db.Close();
         System.out.println("--------------------- ok ---------------------");
+        Thread.sleep(5000);
+        System.out.println("start Argus");
+        Runtime.getRuntime().exec("d:\\ARGUS\\argus.exe");
+        System.out.println("finish");
     }
 }

@@ -9,6 +9,7 @@ import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -99,6 +100,28 @@ public class DB {
         try {
             Statement stmt = Connection().createStatement();
             stmt.executeQuery(SQL);
+            if (stmt.getMoreResults()) {
+                result = stmt.getResultSet();
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        }
+        return result;
+    }
+    /**
+     * exec procedure in oracle with parameters
+     *
+     * @param SQL
+     * @return ResultSet
+     * @throws java.sql.SQLException
+     */
+    public ResultSet ExecProcPS(String SQL,String[] param) throws SQLException {
+        ResultSet result = null;
+        try {
+            CallableStatement stmt = Connection().prepareCall(SQL);
+            stmt.setString(1, param[0]);
+            stmt.setString(2, param[1]);
+            stmt.execute();
             if (stmt.getMoreResults()) {
                 result = stmt.getResultSet();
             }

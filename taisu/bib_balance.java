@@ -28,7 +28,12 @@ public class bib_balance implements CFT_Interface {
             //Calendar c1 = new GregorianCalendar(Calendar.getInstance().get(Calendar.YEAR), Calendar.getInstance().get(Calendar.MONTH) - 1, 1);//первое число прошлого месяца
             Calendar c1 = new GregorianCalendar(2016,6,1);//первое число прошлого месяца
             Calendar today = Calendar.getInstance();
-            today.add(Calendar.DAY_OF_MONTH, -1); //вчерашняя дата
+            if (today.get(Calendar.DAY_OF_WEEK) == 2) {
+                today.add(Calendar.DAY_OF_MONTH, -3); //пятница
+
+            } else {
+                today.add(Calendar.DAY_OF_MONTH, -1); //вчерашняя дата
+            }
             while (c1.before(today)) {
                 GregorianCalendar c2 = (GregorianCalendar) c1.clone();
                 String day1 = util1.normal_date(String.valueOf(c2.get(Calendar.DAY_OF_MONTH)));
@@ -48,7 +53,8 @@ public class bib_balance implements CFT_Interface {
                 param[3] = date_2;
                 param[4] = date_1;
                 param[5] = date_1;
-                ResultSet rs = Taisu.db.ResultSetPS(Taisu.db.SELECT_BALANCE_SQL, param);
+                //ResultSet rs = Taisu.db.ResultSetPS(Taisu.db.SELECT_BALANCE_SQL, param);
+                ResultSet rs = Taisu.db.ExecProcPS(Taisu.db.SELECT_BALANCE_SQL, param);
                 while (rs.next()) {
                     try (Formatter fmt = new Formatter(Locale.ENGLISH)) {
                         str = fmt.format("%s\t"
