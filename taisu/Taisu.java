@@ -50,10 +50,8 @@ public class Taisu {
         Thread.sleep(5000);
 
         if (new bib_account().checkDouble()) {
-            System.out.println("DOUBLE !!!! ");
-        } else {
-            Runtime.getRuntime().exec("otpravka.bat");
+            System.out.println("DOUBLE DOUBLE DOUBLE !!!! ");
         }
-
+        
     }
 }
