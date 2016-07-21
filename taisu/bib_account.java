@@ -5,10 +5,15 @@
  */
 package taisu;
 
+import java.io.BufferedReader;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.Formatter;
+import java.util.List;
+import static taisu.Taisu.BIB_ACCOUNT;
 
 /**
  *
@@ -16,13 +21,16 @@ import java.util.Formatter;
  */
 public class bib_account extends DB implements CFT_Interface {
 
+    public List<String> lines = new ArrayList<>();
+
     @Override
     public void to_file(String fileName) {
-        String[] param = new String[1];
+        String[] param = new String[3];
         ArrayList asd = new ArrayList();
         try {
             param[0] = util1.firstDataLastMonth();
-            //param[0] = "30.06.2016";
+            param[1] = util1.firstDataLastMonth();
+            param[2] = util1.firstDataLastMonth();
             //param[1] = util1.Yesteday();
             ResultSet rs = Taisu.db.ResultSetPS(Taisu.db.SELECT_ACCOUNT_SQL, param);
                 try (Formatter fmt = new Formatter(fileName, "Cp866")) {
@@ -169,6 +177,7 @@ public class bib_account extends DB implements CFT_Interface {
                                     | (rs.getString(1).equals("40702978500000042375") & rs.getString(12).equals("5"))
                                     | (rs.getString(1).equals("40702978500000042391") & rs.getString(12).equals("5"))
                                     | (rs.getString(1).equals("40702978600000022415") & rs.getString(12).equals("5"))
+                                    | (rs.getString(1).equals("91203810700000000516") & rs.getString(12).equals("5"))
                                     | (rs.getString(1).equals("40702978700000022373") & rs.getString(12).equals("5"))) {
                             continue;
                         }
@@ -196,5 +205,30 @@ public class bib_account extends DB implements CFT_Interface {
         }
 
     }
+
+    public boolean checkDouble() {
+        boolean result = false;
+        try (BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(BIB_ACCOUNT), "Cp866"))) {
+            String line;
+            String acct;
+            while ((line = reader.readLine()) != null) {
+                acct = line.substring(0, 20).trim();
+                if (lines.contains(acct)) {
+                    System.out.println("ACCT " + acct);
+                    result = true;
+                    break;
+                } else {
+                    lines.add(acct);
+                    result = false;
+                }
+
+            }
+
+        } catch (IOException ex) {
+            System.out.println(ex.getMessage());
+        }
+        return result;
+    }
+
 
 }

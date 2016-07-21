@@ -205,6 +205,7 @@ public class bib_balance implements CFT_Interface {
                             (rs.getString(1).equals("40702978500000042375") & rs.getString(5).equals("000-05")) |
                             (rs.getString(1).equals("40702978500000042391") & rs.getString(5).equals("000-05")) |
                             (rs.getString(1).equals("40702978600000022415") & rs.getString(5).equals("000-05")) |
+                            (rs.getString(1).equals("91203810700000000516") & rs.getString(5).equals("000-05")) |
                             (rs.getString(1).equals("40702978700000022373") & rs.getString(5).equals("000-05"))) {
                         continue;
                     }

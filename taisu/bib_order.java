@@ -29,10 +29,10 @@ public class bib_order implements CFT_Interface {
             while (rs.next()) {
                 try (Formatter fmt = new Formatter(Locale.ENGLISH)) {
                     str = fmt.format("%s\t" /* уник. номер */
-                            + "%-30s\t" /* дебет       */
-                            + "%-30s\t" /* кредит      */
-                            + "%-30s\t" /* дебет       */
-                            + "%-30s\t" /* кредит      */
+                            + "%s\t" /* дебет       */
+                            + "%s\t" /* кредит      */
+                            + "%s\t" /* дебет       */
+                            + "%s\t" /* кредит      */
                             + "%s\t" /* дата проводки */
                             + "%s\t" /* сумма в валюте счета */
                             + "%s\t" /* сумма в рублях */

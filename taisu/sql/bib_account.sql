@@ -44,9 +44,12 @@ FROM Z#ACCOUNT A1_2,
     Z#DEPN A1_8,             /* ДЕПОЗИТЫ */
     (select C_MAIN_V_ID,C_CLIENT_r COD_CL from Z#AC_FIN A1_1
      where not C_CLIENT_r is null
+     AND (C_DATE_CLOSE IS NULL OR C_DATE_CLOSE >= TO_DATE(?,'DD.MM.YYYY'))
      union 
      select C_MAIN_V_ID,C_CLIENT_V COD_CL from Z#AC_FIN A1_1
-     where  C_CLIENT_r is null) klient,
+     where  C_CLIENT_r is null
+     AND (C_DATE_CLOSE IS NULL OR C_DATE_CLOSE >= TO_DATE(?,'DD.MM.YYYY'))
+     ) klient,
     Z#CLIENT A1_20,
     Z#CLIENT A1_21
 WHERE A1_1.ID = A1_2.ID

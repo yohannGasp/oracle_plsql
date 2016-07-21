@@ -16,6 +16,7 @@ import java.text.ParseException;
  */
 public class Taisu {
     public static final String DIR = "out\\";
+    public static final String ARCHIVE = "d:\\Archive\\";
     public static final String BIB_ACCOUNT = "d:\\" + DIR + "bib_account.txt";
     public static final String BIB_BALANCE = "d:\\" + DIR + "bib_balance.txt";
     public static final String BIB_CLIENT = "d:\\" + DIR + "bib_client.txt";
@@ -27,13 +28,12 @@ public class Taisu {
 
     static DB db;
 
-
     public static void main(String[] args) throws IOException, ParseException, SQLException, InterruptedException {
         db = new DB();
         db.Connection();
         db.queryAll();
         bib_prep bp = new bib_prep();
-        bp.start_code();
+        bp.start_code();// заполняем временные таблицы
 
         new SubcontoThread();                       // ok
         new ClientsThread();                        // ok
@@ -44,12 +44,16 @@ public class Taisu {
         new bib_balance().to_file(BIB_BALANCE);     // ok
         new bib_account().to_file(BIB_ACCOUNT);     // ok
 
-        bp.finish_code();
+        bp.finish_code(); //чистим временные таблицы
         db.Close();
-        System.out.println("--------------------- ok ---------------------");
+        System.out.println("-------------- ok --------------");
         Thread.sleep(5000);
-        System.out.println("start Argus");
-        Runtime.getRuntime().exec("d:\\ARGUS\\argus.exe");
-        System.out.println("finish");
+
+        if (new bib_account().checkDouble()) {
+            System.out.println("DOUBLE !!!! ");
+        } else {
+            Runtime.getRuntime().exec("otpravka.bat");
+        }
+
     }
 }
