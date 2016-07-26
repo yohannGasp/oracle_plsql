@@ -177,7 +177,7 @@ public class bib_balance implements CFT_Interface {
         String[] param = new String[6];
         try (OutputStreamWriter writer = new OutputStreamWriter(new FileOutputStream(fileName), "Cp866");) {
             //Calendar c1 = new GregorianCalendar(Calendar.getInstance().get(Calendar.YEAR), Calendar.getInstance().get(Calendar.MONTH) - 1, 1);//первое число прошлого месяца
-            Calendar c1 = new GregorianCalendar(2016,6,1);//первое число прошлого месяца
+            Calendar c1 = new GregorianCalendar(2016,6,11);//первое число прошлого месяца
             Calendar today = Calendar.getInstance();
             if (today.get(Calendar.DAY_OF_WEEK) == 2) {
                 today.add(Calendar.DAY_OF_MONTH, -3); //пятница

@@ -25,7 +25,7 @@ public class util1 {
     //первое число прошлого месяца
     public static String firstDataLastMonth() {
         //return "01." + normal_date(String.valueOf(Calendar.getInstance().get(Calendar.MONTH))) + "." + Calendar.getInstance().get(Calendar.YEAR);
-        return "01.07.2016";
+        return "11.07.2016";
     }
 
     //вчерашняя дата

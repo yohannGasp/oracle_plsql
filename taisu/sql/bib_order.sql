@@ -19,7 +19,7 @@ SELECT
     ROUND(A1_1.C_SUM_NT,2),                                       /* Сумма в рублях */
     ROUND(decode(A1_1.C_SUM, null, A1_1.C_SUM_PO, 0, A1_1.C_SUM_PO, A1_1.C_SUM),2) SUM_ACCA, /* сумма в валюте счета */ 
     ROUND(A1_1.C_SUM_NT,2),                                       /* Сумма в рублях */
-    REPLACE(REPLACE(REPLACE(TRIM(A1_1.C_NAZN),chr(10),' '),chr(13),' '),chr(9),' ') NAZN,      /* Назначение */
+    SUBSTR(REPLACE(REPLACE(REPLACE(TRIM(A1_1.C_NAZN),chr(10),' '),chr(13),' '),chr(9),' '),1,1023) NAZN, /* Назначение */
     NVL(NVL(BIB_TAISU_FIND_KREDDOG(A1_1.C_ACC_DT),BIB_TAISU_FIND_KREDDOG(A1_1.C_ACC_KT)),' ') KRED_DOG, /* Номер кредитного договора */
     NVL(NVL(BIB_TAISU_FIND_KIND_CR_FULL(BIB_TAISU_FIND_KIND_CREDIT(A1_1.C_ACC_DT),BIB_TAISU_NVL2(A3_11.ID)),BIB_TAISU_FIND_KIND_CR_FULL(BIB_TAISU_FIND_KIND_CREDIT(A1_1.C_ACC_KT),BIB_TAISU_NVL2(A3_11_2.ID))),' ') KRED_TYPE, /* Тип кредита */
     NVL(NVL(TRIM(A1_8.C_NUM_DOG_EXT),TRIM(A1_8_1.C_NUM_DOG_EXT)),' ') DEP_DOG /* Номер депозита */
