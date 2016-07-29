@@ -42,7 +42,11 @@ public class DB {
     public String FINISH_SQL = "";
     public String SELECT_SUBCONTO_SQL = "";
 
-    private final static String currentDir = System.getProperty("user.dir") + "\\src\\taisu\\sql\\";
+    private String currentDir;
+
+    public DB(String curDir) {
+        this.currentDir = curDir;
+    }
 
     /* Singletone */
     Connection Connection() throws SQLException {

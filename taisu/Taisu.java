@@ -15,21 +15,22 @@ import java.text.ParseException;
  * @author akulov_ev (c) 2016
  */
 public class Taisu {
-    public static final String DIR = "out\\";
+    public static final String DIR = "C:\\taisu\\out\\";
     public static final String ARCHIVE = "d:\\Archive\\";
-    public static final String BIB_ACCOUNT = "d:\\" + DIR + "bib_account.txt";
-    public static final String BIB_BALANCE = "d:\\" + DIR + "bib_balance.txt";
-    public static final String BIB_CLIENT = "d:\\" + DIR + "bib_client.txt";
-    public static final String BIB_DEPDOG = "d:\\" + DIR + "bib_depdog.txt";
-    public static final String BIB_KREDDOG = "d:\\" + DIR + "bib_kreddog.txt";
-    public static final String BIB_KREDPOS = "d:\\" + DIR + "bib_kredpos.txt";
-    public static final String BIB_ORDER = "d:\\" + DIR + "bib_order.txt";
-    public static final String BIB_SUBCONTO = "d:\\" + DIR + "bib_subconto.txt";
+    public static final String BIB_ACCOUNT  = DIR + "bib_account.txt";
+    public static final String BIB_BALANCE  = DIR + "bib_balance.txt";
+    public static final String BIB_CLIENT   = DIR + "bib_client.txt";
+    public static final String BIB_DEPDOG   = DIR + "bib_depdog.txt";
+    public static final String BIB_KREDDOG  = DIR + "bib_kreddog.txt";
+    public static final String BIB_KREDPOS  = DIR + "bib_kredpos.txt";
+    public static final String BIB_ORDER    = DIR + "bib_order.txt";
+    public static final String BIB_SUBCONTO = DIR + "bib_subconto.txt";
 
     static DB db;
 
     public static void main(String[] args) throws IOException, ParseException, SQLException, InterruptedException {
-        db = new DB();
+
+        db = new DB(args[0]);
         db.Connection();
         db.queryAll();
         bib_prep bp = new bib_prep();
@@ -52,6 +53,6 @@ public class Taisu {
         if (new bib_account().checkDouble()) {
             System.out.println("DOUBLE DOUBLE DOUBLE !!!! ");
         }
-        
+
     }
 }

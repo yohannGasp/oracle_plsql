@@ -19,7 +19,7 @@ import static taisu.Taisu.BIB_ACCOUNT;
  *
  * @author akulov_ev
  */
-public class bib_account extends DB implements CFT_Interface {
+public class bib_account implements CFT_Interface {
 
     public List<String> lines = new ArrayList<>();
     public List<String> bad_acct = new ArrayList<>();
@@ -221,12 +221,9 @@ public class bib_account extends DB implements CFT_Interface {
                 if (lines.contains(acct)) {
                     System.out.println("ACCT " + acct);
                     result = true;
-                    break;
                 } else {
                     lines.add(acct);
-                    result = false;
                 }
-
             }
 
         } catch (IOException ex) {
